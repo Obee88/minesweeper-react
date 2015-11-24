@@ -1,0 +1,38 @@
+{
+  "name": "minesweeper-react",
+  "version": "1.0.0",
+  "description": "React minesweeper with npm as build tool",
+  "main": "index.js",
+  "scripts": {
+    "watch-js": "watchify src/js/minesweeper-app.js --debug  -t babelify -v  --outfile build/app.js",
+    "watch-html": "watchy -w src/html -- cp src/html/* ./build",
+    "server": "http-server ./build -s -c-1 -p 8888",
+    "dev": "npm run watch-js & npm run watch-html & npm run server",
+    "build:images": "cp src/images/* build/images",
+    "build:styles": "npm run build:styles:css & npm run build:styles:js",
+    "build:styles:css": "cp ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/css/ & cp src/css/* build/css",
+    "build:styles:js": "cp ./node_modules/bootstrap/dist/js/bootstrap.min.js ./build/js/ & cp ./node_modules/jquery/dist/jquery.min.js ./build/js/",
+    "build": "npm run build:images & npm run build:styles & browserify src/js/minesweeper-app.js -t babelify -g uglifyify -o build/app.js  & cp src/html/* ./build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.0.12",
+    "babelify": "^6.0.2",
+    "bootstrap": "^3.3.5",
+    "browserify": "latest",
+    "http-server": "^0.8.0",
+    "jquery": "^2.1.4",
+    "react": "^0.13.1",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.1.0",
+    "watchy": "^0.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Obee88/minesweeper-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Obee88/minesweeper-react/issues"
+  }
+}
