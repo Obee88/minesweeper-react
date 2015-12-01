@@ -15,7 +15,7 @@ var Timer = function(initTime, thickPeriod){
 	this.incThicks = function(incVal){
 		if(typeof incVal === 'undefined')
 			incVal = 1;
-		var newThicksVal = this.thicks+1;
+		var newThicksVal = this.thicks>=999? 999 : this.thicks+1;
 		this.setTime(newThicksVal);
 	}.bind(this);
 

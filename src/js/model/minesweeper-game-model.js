@@ -4,7 +4,6 @@ import MinesweeperMinesFieldModel from './minesweeper-mines-field-model.js';
 
 var MinesweeperGameModel = function(gameSettings){
 
-
 	this.init = function(gameSettings){
 		this.gameSettings = gameSettings;
 		this.header = new MinesweeperHeaderModel(gameSettings.width, gameSettings.height, gameSettings.mines);
@@ -51,13 +50,15 @@ var MinesweeperGameModel = function(gameSettings){
   		for(var i=0; i<board.width; i++){
   			for(var j=0; j<board.height; j++){
   				if (this.field.get(i,j)==='x'){
-  					if(this.board.get(i,j).isFlagged()){
+  					if(board.get(i,j).isFlagged()){
   						continue;
   					} else if (x==i && y==j) {
   						board.get(i,j).setBombDeath();
   					} else {
   						board.get(i,j).setBombRevealed();
   					}
+  				} else if (board.get(i,j).isFlagged()){
+  					board.get(i,j).setBombMisflaged();
   				}
   			}
   		}
@@ -90,11 +91,13 @@ var MinesweeperGameModel = function(gameSettings){
 		if(mouseController.isLeftButtonPressed()){
 			var sender = mouseController.leftButtonPressedElement;
 			var c = this.getCordsOfField(sender);
-			if (mouseController.isRightButtonPressed()){
-				this.board.pressSquare(c.x, c.y);
-			} else{
-				if (this.board.get(c.x,c.y).getState() === 'blank'){
-					this.board.get(c.x,c.y).setPressed();
+			if(!this.isGameOver()){
+				if (mouseController.isRightButtonPressed()){
+					this.board.pressSquare(c.x, c.y);
+				} else{
+					if (this.board.get(c.x,c.y).getState() === 'blank'){
+						this.board.get(c.x,c.y).setPressed();
+					}
 				}
 			}
 		}
@@ -186,7 +189,7 @@ var MinesweeperGameModel = function(gameSettings){
 	}.bind(this);
 
 	this.rightClickDone = function(field,board,x,y){
-		console.log("R"+x+","+y);
+		// console.log("R"+x+","+y);
 		if (board.get(x,y).isBlank()){
 			board.get(x,y).setFlagged();
 			this.header.minesCounter.decr();
@@ -199,7 +202,7 @@ var MinesweeperGameModel = function(gameSettings){
 	}.bind(this);
 
 	this.doubleClickDone = function(field,board,x,y){
-		console.log("D"+x+","+y);
+		// console.log("D"+x+","+y);
 		if(board.get(x,y).isOpen()){
 			for(var i=0; i<this.board.width; ++i){
 				for(var j=0; j<this.board.height; ++j){
@@ -210,6 +213,10 @@ var MinesweeperGameModel = function(gameSettings){
 			}
 		}
 		return board;
+	}.bind(this);
+
+	this.isGameOver = function(){
+		return ["win","lost"].indexOf(this.status)!=-1;
 	}.bind(this);
 
 	this.fireEvent = function(eventName, e, sender){

@@ -47,14 +47,6 @@ var MinesweeperBoardModel = function(width, height){
 		});
 	}.bind(this);
 
-	this.onMouseOutOfBoard = function(e){
-		var e = event.toElement || event.relatedTarget;
-        if (e.parentNode == this || e == this) {
-           return;
-        }
-        this.releasePressedFields();
-	}.bind(this);
-
 	this.isValidCoordinate = function(x, y){
 		if (x<0 || x>=this.width) return false;
 		if (y<0 || y>=this.height) return false;

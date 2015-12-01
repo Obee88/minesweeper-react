@@ -6,6 +6,9 @@ import MinesweeperGame from './components/minesweeper-game.js';
 import MinesweeperGameModel from './model/minesweeper-game-model.js';
 import MouseModel from './model/mouse-model.js';
 import ComponentPreview from './components/component-preview.js';
+import ScoreBoard from './components/scoreboard.js';
+import Oc from './crypt/obeecrypt.js';
+import SubmitScoreForm from './components/submit-score-form.js';
 
 class MinesweeperApp extends React.Component {
 
@@ -18,8 +21,11 @@ class MinesweeperApp extends React.Component {
 		this.state = {
 			game:game,
 			mouse: mouse,
-			selectedLevel: defaultLevel
-		}
+			selectedLevel: defaultLevel,
+			scores: { "easy":{}, "intermediate":{}, "expert":{}},
+
+		};
+		this.refreshScores();
   	}
 
   	setEventHandlers(mouse, game){
@@ -30,6 +36,18 @@ class MinesweeperApp extends React.Component {
 			"mouseOver": game.onMouseOver,
 			"onStateChanged": function(eventName, e, sender){ 
 				this.setState({mouse:sender});
+			}.bind(this)
+		});
+		mouse.addEventHandler({
+			"mouseDown": function(eventName, e, sender){
+				if (!this.state.game.isGameOver()){
+					this.state.game.header.smileyButton.setOoh();
+				}
+			}.bind(this),
+			"mouseUp": function(eventName, e, sender){
+				if (!this.state.game.isGameOver()){
+					this.state.game.header.smileyButton.state="facesmile";
+				}
 			}.bind(this)
 		});
 		game.addEventHandler({
@@ -78,14 +96,67 @@ class MinesweeperApp extends React.Component {
 		this.setState({key:value});
 	}
 
+	refreshScores(){
+		var url = "http://localhost:8080/scores";
+		var self = this;
+		var onScoresRecived = function(scores){
+			self.setState({scores:scores});
+		};
+		$.ajax({
+			url: url,
+			dataType: "jsonp",
+			jsonpCallback: "onScoresRecived",
+			success: onScoresRecived
+		});
+	}
+
+	submitScore(n,t){
+		var url = "http://localhost:8080/scores/submit";
+		var self = this[0];
+		var Oc = this[1];
+		var encryptedString = Oc.e(t,n);
+		console.log(encryptedString);
+		var onResp = function(scores){
+			var game = self.state.game;
+			game.status = "submited";
+			self.setState({scores:scores, game: game});
+		};
+		$.ajax({
+			url: url,
+			data: {diff: self.state.selectedLevel , name:n, time:t, token: encryptedString},
+			dataType: "jsonp",
+			jsonpCallback: "onResp",
+			success: onResp
+		});
+	}
+
+	encryptToken(n,t){
+		return Oc.e(t,n);
+	}
+
+	
+
 	render() {
 		return (
-			<div className="row" >
-				<div className="col-xs-6">
-					<PillSelector choices={Object.keys(this.levelsAvailable())} 
-							selectedChoice={this.state.selectedLevel}
-							innitGameCallback={this.onDifficultySelected.bind(this)} />
-					<MinesweeperGame game={this.state.game} mouse={this.state.mouse}/>
+			<div>
+				<div className="row" >
+					<div className="col-xs-6">
+						<PillSelector choices={Object.keys(this.levelsAvailable())} 
+								selectedChoice={this.state.selectedLevel}
+								innitGameCallback={this.onDifficultySelected.bind(this)} />
+						<MinesweeperGame game={this.state.game} mouse={this.state.mouse}/>
+					</div>
+					<div className="col-xs-6">
+						<ScoreBoard scores={this.state.scores[this.state.selectedLevel]}/>
+					</div>
+				</div>	
+				<div className="row">
+					<div className="col-xs-6">
+						<SubmitScoreForm submitScoreCallback={this.submitScore.bind([this,Oc])} 
+								gameStatus = {this.state.game.status} 
+								currentTimeGetter={this.state.game.header.timer.getTime}
+								worstScore = {this.state.scores[this.state.selectedLevel]["10"]}/>
+					</div>
 				</div>
 			</div>	
 			);

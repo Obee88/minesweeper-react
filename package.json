@@ -14,7 +14,7 @@
     "build:styles:js": "cp ./node_modules/bootstrap/dist/js/bootstrap.min.js ./build/js/ & cp ./node_modules/jquery/dist/jquery.min.js ./build/js/",
     "build": "npm run build:images & npm run build:styles & browserify src/js/minesweeper-app.js -t babelify -g uglifyify -o build/app.js  & cp src/html/* ./build"
   },
-  "author": "",
+  "author": "Davor Obilinovic",
   "license": "ISC",
   "devDependencies": {
     "babel": "^5.0.12",

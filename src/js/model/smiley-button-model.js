@@ -3,26 +3,32 @@ var SmileyButtonModel = function(){
 	this.setState = function(state){
 		this.state = state
 		this.fireEvent("onStateChanged");
+		return this;
 	}.bind(this);
 
 	this.setSmile = function(){
 		this.setState("facesmile");
+		return this;
 	}
 
 	this.setPressed = function(){
 		this.setState("facepressed");
+		return this;
 	}.bind(this);
 
 	this.setWin = function(){
 		this.setState("facewin");
+		return this;
 	}
 
 	this.setDead = function(){
 		this.setState("facedead");
+		return this;
 	}
 
 	this.setOoh = function(){
 		this.setState("faceooh")
+		return this;
 	}
 
 	this.getState = function(){
@@ -44,6 +50,7 @@ var SmileyButtonModel = function(){
 
 	this.onMouseDown = function(e){
 		this.setPressed();
+		return this;
 	}.bind(this);
 
 	this.onMouseUp = function(e){
@@ -51,14 +58,19 @@ var SmileyButtonModel = function(){
 			this.fireEvent("onSmileyButtonClicked")
 			this.setSmile();
 		}
+		return this;
 	}.bind(this);
 
 	this.onMouseOut = function(e){
-		this.setSmile();
+		if (!(this.state=="facewin"||this.state=="facedead")){
+			this.setSmile();
+		}
+		return this;
 	}.bind(this);
 
 	this.addEventHandler = function(eventHandler){
 		this.eventHandlers.push(eventHandler);
+		return this;
 	}.bind(this);
 
 	/////////// Constructor ////////////

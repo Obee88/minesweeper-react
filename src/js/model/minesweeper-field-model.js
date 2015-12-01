@@ -32,6 +32,10 @@ var MinesweeperFieldModel = function(x, y, state){
 		this.setState("bombrevealed");
 	}.bind(this);
 
+	this.setBombMisflaged = function(){
+		this.setState("bombmisflagged");
+	}.bind(this);
+
 	this.setBombDeath = function(){
 		this.setState("bombdeath");
 	}.bind(this);
