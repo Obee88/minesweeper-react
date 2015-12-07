@@ -28,13 +28,16 @@ class ScoreBoard extends React.Component {
 		}
 
 		return (
-			<div className="well" style={{ 'margin-top':'50px'}}>
-				<div className="row scoreboard-header" style={{ 'font-weight':'bold'}}>
-					<div className="col-xs-4" style={{ 'border-bottom': 'solid black 1px'}}>name</div>
-					<div className="col-xs-2" style={{ 'border-bottom': 'solid black 1px'}}>time</div>
-					<div className="col-xs-4" style={{ 'border-bottom': 'solid black 1px'}}>date</div>
+			<div style={{ 'margin-top':'50px'}}>
+				<h4>Hall of fame</h4>
+				<div className="well">
+					<div className="row scoreboard-header" style={{ 'font-weight':'bold'}}>
+						<div className="col-xs-4" style={{ 'border-bottom': 'solid black 1px'}}>name</div>
+						<div className="col-xs-2" style={{ 'border-bottom': 'solid black 1px'}}>time</div>
+						<div className="col-xs-4" style={{ 'border-bottom': 'solid black 1px'}}>date</div>
+					</div>
+					{items}
 				</div>
-				{items}
 			</div>
 		);
 	}
