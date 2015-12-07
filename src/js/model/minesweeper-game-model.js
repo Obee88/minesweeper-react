@@ -203,14 +203,15 @@ var MinesweeperGameModel = function(gameSettings){
 
 	this.doubleClickDone = function(field,board,x,y){
 		// console.log("D"+x+","+y);
-		if(board.get(x,y).isOpen()){
-			for(var i=0; i<this.board.width; ++i){
-				for(var j=0; j<this.board.height; ++j){
-					if(i>=x-1 && i<=x+1 && j>=y-1 && j<=y+1){
+		if (board.get(x,y).isOpen()){
+			if (board.get(x,y).getNumber() == board.numOfFlaggedFieldsAround(x,y)){
+				for(var i=x-1; i<=x+1; ++i){
+					for(var j=y-1; j<=y+1; ++j){
 						board = this.leftClickDone(field, board, i,j,true);
 					}
 				}
 			}
+
 		}
 		return board;
 	}.bind(this);

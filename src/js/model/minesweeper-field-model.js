@@ -69,6 +69,14 @@ var MinesweeperFieldModel = function(x, y, state){
 		}
 	}.bind(this);
 
+	this.getNumber = function(x, y){
+		if (!this.isOpen){
+			return -1;
+		}
+		var state = this.getState();
+		return parseInt(state.substr(state.length - 1));
+	}.bind(this);
+
 	this.addEventHandler = function(eventHandler){
 		this.eventHandlers.push(eventHandler);
 	}.bind(this);

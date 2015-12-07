@@ -77,6 +77,19 @@ var MinesweeperBoardModel = function(width, height){
 		);
 	}.bind(this);
 
+	this.numOfFlaggedFieldsAround = function(x, y) {
+		var num = 0;
+		if (this.get(x  , y-1).isFlagged()) num++;
+		if (this.get(x  , y+1).isFlagged()) num++;
+		if (this.get(x-1, y-1).isFlagged()) num++;
+		if (this.get(x-1, y  ).isFlagged()) num++;
+		if (this.get(x-1, y+1).isFlagged()) num++;
+		if (this.get(x+1, y+1).isFlagged()) num++;
+		if (this.get(x+1, y  ).isFlagged()) num++;
+		if (this.get(x+1, y-1).isFlagged()) num++;
+		return num;
+	}.bind(this);
+
 	/////////// Constructor ////////////
 	this.eventHandlers = [];
 	this.width = width;

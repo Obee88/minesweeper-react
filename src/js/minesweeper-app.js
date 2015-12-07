@@ -97,7 +97,8 @@ class MinesweeperApp extends React.Component {
 	}
 
 	refreshScores(){
-		var url = "http://185.53.129.19:8080/server-rest/scores";
+		var url = "http://localhost:8080/scores";
+		// var url = "http://185.53.129.19:8080/server-rest/scores";
 		var self = this;
 		var onScoresRecived = function(scores){
 			self.setState({scores:scores});
@@ -111,7 +112,8 @@ class MinesweeperApp extends React.Component {
 	}
 
 	submitScore(n,t){
-		var url = "http://185.53.129.19:8080/server-rest/scores/submit";
+		var url = "http://localhost:8080/scores/submit";
+		// var url = "http://185.53.129.19:8080/server-rest/scores/submit";
 		var self = this[0];
 		var Oc = this[1];
 		var encryptedString = Oc.e(t,n);
