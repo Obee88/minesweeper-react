@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import MinesweeperField from './minesweeper-field.js';
+import MinesweeperCell from './minesweeper-cell.js';
 
 class MinesweeperBoard extends React.Component {
 	/**
@@ -25,7 +25,7 @@ class MinesweeperBoard extends React.Component {
 			divs.push(b);
 			for (var x=0; x<w; x++){
 				divs.push(
-					(<MinesweeperField model={this.props.game.board.get(x,y)}  
+					(<MinesweeperCell model={this.props.game.board.get(x,y)}  
 						mouse={this.props.mouse} />));
 			}
 			divs.push(b);

@@ -1,25 +1,29 @@
 import Matrix from './Matrix.js';
-import MinesweeperFieldModel from './minesweeper-field-model.js';
+import MinesweeperCellModel from './minesweeper-cell-model.js';
 
 var MinesweeperBoardModel = function(width, height){
 
-	this.initFields = function(width, height){
-		this.fields = new Matrix(width, height);
+	this.initCells = function(width, height){
+		this.cells = new Matrix(width, height);
 		for(var i=0; i<width; i++){
 			for(var j=0; j<height; j++){
-				this.fields.set(i, j,
-					new MinesweeperFieldModel(i,j)
+				this.cells.set(i, j,
+					new MinesweeperCellModel(i,j)
 				);
 			}
 		}
 	}.bind(this);
 
 	this.get = function(x,y){
-		return this.fields.get(x,y);
+		return this.cells.get(x,y);
+	}.bind(this);
+
+	this.getCells = function(){
+		return this.cells;
 	}.bind(this);
 
 	this.getByIndex = function(index){
-		return this.fields.getByIndex(index);
+		return this.cells.getByIndex(index);
 	}.bind(this);
 
 	this.pressSquare = function(x, y){
@@ -39,10 +43,10 @@ var MinesweeperBoardModel = function(width, height){
 		}
 	}.bind(this);
 
-	this.releasePressedFields = function(){
-		this.fields.data.forEach(function(field){
-			if (field.getState()==='pressed'){
-				field.setBlank();
+	this.releasePressedCells = function(){
+		this.getCells().data.forEach(function(cell){
+			if (cell.getState()==='pressed'){
+				cell.setBlank();
 			}
 		});
 	}.bind(this);
@@ -77,12 +81,12 @@ var MinesweeperBoardModel = function(width, height){
 		);
 	}.bind(this);
 
-	this.numOfFlaggedFieldsAround = function(x, y) {
+	this.numOfFlaggedCellsAround = function(x, y) {
 		var num = 0;
 		for (var i=x-1; i<=x+1; i++){
 			for(var j=y-1; j<=y+1; j++){
-				var field = this.get(i,j);
-				if (field!=null && field.isFlagged()){
+				var cell = this.get(i,j);
+				if (cell!=null && cell.isFlagged()){
 					num++;
 				}
 			}
@@ -94,9 +98,9 @@ var MinesweeperBoardModel = function(width, height){
 	this.eventHandlers = [];
 	this.width = width;
 	this.height = height;
-	this.openFieldsLeft = width * height;
-	this.initFields(width, height);
-	this.children = this.fields.data;
+	this.openCellsLeft = width * height;
+	this.initCells(width, height);
+	this.children = this.cells.data;
 	this.setEventHandlers();
 }
 

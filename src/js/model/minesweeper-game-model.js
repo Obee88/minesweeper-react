@@ -69,7 +69,7 @@ var MinesweeperGameModel = function(gameSettings){
   	}.bind(this);
 
   	this.winGame = function(board){
-  		for(var i=0; i<board.fields.size();i++){
+  		for(var i=0; i<board.getCells().size();i++){
   			if (board.getByIndex(i).isBlank() && this.field.getByIndex(i)==='x')
   				board.getByIndex(i).setFlagged();
   		}
@@ -81,7 +81,7 @@ var MinesweeperGameModel = function(gameSettings){
 
 	this.onMouseUp = function(eventName, e, mouseController){
 		var s = "";
-		this.board.releasePressedFields();
+		this.board.releasePressedCells();
 		if (mouseController.isLeftButtonPressed()) s = s+"L";
 		if (mouseController.isRightButtonPressed()) s = s+"R";
 		this.handleMouseAction(s, mouseController)
@@ -90,7 +90,7 @@ var MinesweeperGameModel = function(gameSettings){
 	this.onMouseDown = function(eventName, e, mouseController){
 		if(mouseController.isLeftButtonPressed()){
 			var sender = mouseController.leftButtonPressedElement;
-			var c = this.getCordsOfField(sender);
+			var c = this.getCordsOfCell(sender);
 			if(!this.isGameOver()){
 				if (mouseController.isRightButtonPressed()){
 					this.board.pressSquare(c.x, c.y);
@@ -123,7 +123,7 @@ var MinesweeperGameModel = function(gameSettings){
 		}		
 	}.bind(this);
 
-	this.getCordsOfField = function(field){
+	this.getCordsOfCell = function(field){
 		var coords = field.attributes["data"].nodeValue.split("_");
 		var x = parseInt(coords[0]), y = parseInt(coords[1]);
 		return {x:x,y:y};
@@ -133,19 +133,19 @@ var MinesweeperGameModel = function(gameSettings){
 		if (action === "" || this.status=="lost" || this.status=="win") return;
 		if (action === "L") {
 			var sender = mouseController.hostElement;
-			var c = this.getCordsOfField(sender);
+			var c = this.getCordsOfCell(sender);
 			this.board = this.leftClickDone(this.field, this.board, c.x, c.y, false);
 		}
 		if (action === "R"){
 			var sender = mouseController.hostElement;
-			var c = this.getCordsOfField(sender);
+			var c = this.getCordsOfCell(sender);
 			this.board = this.rightClickDone(this.field, this.board, c.x, c.y, false);
 		}
 		if (action === "RL" || action === "LR"){
 			if (mouseController.leftButtonPressedElement === mouseController.rightButtonPressedElement){
 				var sender = mouseController.hostElement;
 				mouseController.releaseButtons();
-				var c = this.getCordsOfField(sender);
+				var c = this.getCordsOfCell(sender);
 				this.board = this.doubleClickDone(this.field, this.board, c.x, c.y, false);
 			}
 		}
@@ -167,7 +167,7 @@ var MinesweeperGameModel = function(gameSettings){
 			}
 			else if (v === 0){
 				board.get(x,y).setOpen(v);
-				board.openFieldsLeft--;
+				board.openCellsLeft--;
 				board = this.leftClickDone(field, board, x-1, y  , true);
 				board = this.leftClickDone(field, board, x+1, y  , true);
 				board = this.leftClickDone(field, board, x-1, y-1, true);
@@ -179,10 +179,10 @@ var MinesweeperGameModel = function(gameSettings){
 			}
 			else {
 				board.get(x,y).setOpen(v);
-				board.openFieldsLeft--;
+				board.openCellsLeft--;
 			}
 		}
-		if (this.status!='lost' && board.openFieldsLeft === this.gameSettings.mines){
+		if (this.status!='lost' && board.openCellsLeft === this.gameSettings.mines){
 			board = this.winGame(board);
 		}
 		return board;
@@ -204,7 +204,7 @@ var MinesweeperGameModel = function(gameSettings){
 	this.doubleClickDone = function(field,board,x,y){
 		// console.log("D"+x+","+y);
 		if (board.get(x,y).isOpen()){
-			if (board.get(x,y).getNumber() == board.numOfFlaggedFieldsAround(x,y)){
+			if (board.get(x,y).getNumber() == board.numOfFlaggedCellsAround(x,y)){
 				for(var i=x-1; i<=x+1; ++i){
 					for(var j=y-1; j<=y+1; ++j){
 						board = this.leftClickDone(field, board, i,j,true);
