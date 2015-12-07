@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import PillSelector from './components/pill-selector.js';
+import LevelSelector from './components/minesweeper-level-selector.js';
 import MinesweeperGame from './components/minesweeper-game.js';
 import MinesweeperGameModel from './model/minesweeper-game-model.js';
 import MouseModel from './model/mouse-model.js';
@@ -163,7 +163,7 @@ class MinesweeperApp extends React.Component {
 			<div>
 				<div className="row" >
 					<div className="col-xs-6">
-						<PillSelector choices={Object.keys(this.levelsAvailable())} 
+						<LevelSelector choices={Object.keys(this.levelsAvailable())} 
 								selectedChoice={this.state.selectedLevel}
 								innitGameCallback={this.onDifficultySelected.bind(this)} />
 						<MinesweeperGame game={this.state.game} mouse={this.state.mouse}/>
