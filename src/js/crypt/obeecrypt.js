@@ -46,7 +46,7 @@ var Oc = {
 			return "";
 		return r.charAt(i);
 	},
-	y:"fdio23a93di"
+	y:""
 }
 
 export default Oc;
