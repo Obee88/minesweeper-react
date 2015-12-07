@@ -79,14 +79,14 @@ var MinesweeperBoardModel = function(width, height){
 
 	this.numOfFlaggedFieldsAround = function(x, y) {
 		var num = 0;
-		if (this.get(x  , y-1).isFlagged()) num++;
-		if (this.get(x  , y+1).isFlagged()) num++;
-		if (this.get(x-1, y-1).isFlagged()) num++;
-		if (this.get(x-1, y  ).isFlagged()) num++;
-		if (this.get(x-1, y+1).isFlagged()) num++;
-		if (this.get(x+1, y+1).isFlagged()) num++;
-		if (this.get(x+1, y  ).isFlagged()) num++;
-		if (this.get(x+1, y-1).isFlagged()) num++;
+		for (var i=x-1; i<=x+1; i++){
+			for(var j=y-1; j<=y+1; j++){
+				var field = this.get(i,j);
+				if (field!=null && field.isFlagged()){
+					num++;
+				}
+			}
+		}
 		return num;
 	}.bind(this);
 
