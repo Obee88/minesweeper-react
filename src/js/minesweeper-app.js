@@ -18,6 +18,7 @@ class MinesweeperApp extends React.Component {
 		var game = new MinesweeperGameModel(this.levelsAvailable()[defaultLevel]);
 		var mouse = new MouseModel();
 		this.setEventHandlers(mouse, game);
+		this.scoreboardEnabled = false;
 		this.state = {
 			game:game,
 			mouse: mouse,
@@ -25,7 +26,9 @@ class MinesweeperApp extends React.Component {
 			scores: { "easy":{}, "intermediate":{}, "expert":{}},
 
 		};
-		this.refreshScores();
+		if (this.scoreboardEnabled){
+			this.refreshScores();	
+		}
   	}
 
   	setEventHandlers(mouse, game){
@@ -139,6 +142,23 @@ class MinesweeperApp extends React.Component {
 	
 
 	render() {
+		var submitScoreForm = this.scoreboardEnabled ? (
+			<div className="row">
+				<div className="col-xs-6">
+					<SubmitScoreForm submitScoreCallback={this.submitScore.bind([this,Oc])} 
+							gameStatus = {this.state.game.status} 
+							currentTimeGetter={this.state.game.header.timer.getTime}
+							worstScore = {this.state.scores[this.state.selectedLevel]["10"]}/>
+				</div>
+			</div>
+		) : "" ;
+
+		var scoreboard = this.scoreboardEnabled ? (
+			<div className="col-xs-6">
+				<ScoreBoard scores={this.state.scores[this.state.selectedLevel]}/>
+			</div>
+		) : "" ;
+
 		return (
 			<div>
 				<div className="row" >
@@ -148,18 +168,9 @@ class MinesweeperApp extends React.Component {
 								innitGameCallback={this.onDifficultySelected.bind(this)} />
 						<MinesweeperGame game={this.state.game} mouse={this.state.mouse}/>
 					</div>
-					<div className="col-xs-6">
-						<ScoreBoard scores={this.state.scores[this.state.selectedLevel]}/>
-					</div>
+					{scoreboard}
 				</div>	
-				<div className="row">
-					<div className="col-xs-6">
-						<SubmitScoreForm submitScoreCallback={this.submitScore.bind([this,Oc])} 
-								gameStatus = {this.state.game.status} 
-								currentTimeGetter={this.state.game.header.timer.getTime}
-								worstScore = {this.state.scores[this.state.selectedLevel]["10"]}/>
-					</div>
-				</div>
+				{submitScoreForm}
 			</div>	
 			);
 	} 
