@@ -22,3 +22,6 @@ Run in development mode
 Screenshot:
 -------------
 ![minesweeper_by_obee](https://cloud.githubusercontent.com/assets/4610139/21764715/cbc9be74-d664-11e6-8565-151990f8cc57.png)
+
+Created by Davor Obilinovic
+Licence: MIT
