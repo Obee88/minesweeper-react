@@ -29,7 +29,7 @@ class ScoreBoard extends React.Component {
 
 		return (
 			<div style={{ 'margin-top':'50px'}}>
-				<h4>Hall of fame</h4>
+				<h4>Hall of fames</h4>
 				<div className="well">
 					<div className="row scoreboard-header" style={{ 'font-weight':'bold'}}>
 						<div className="col-xs-4" style={{ 'border-bottom': 'solid black 1px'}}>name</div>
