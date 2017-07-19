@@ -1,4 +1,4 @@
-import Matrix from './Matrix.js';
+import Matrix from './matrix.js';
 
 var MinesweeperMinesFieldModel = function(width, height, minesCnt){
 

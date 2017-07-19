@@ -1,4 +1,4 @@
-import Matrix from './Matrix.js';
+import Matrix from './matrix.js';
 import MinesweeperCellModel from './minesweeper-cell-model.js';
 
 var MinesweeperBoardModel = function(width, height){
