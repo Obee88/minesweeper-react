@@ -11,10 +11,10 @@
     "clean": "rm -rf ./build",
     "build:dirs": "mkdir build && mkdir build/images && mkdir build/css && mkdir build/js",
     "build:images": "cp src/images/* build/images",
-    "build:styles": "npm run build:styles:css & npm run build:styles:js",
-    "build:styles:css": "cp ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/css/ & cp src/css/* build/css",
-    "build:styles:js": "cp ./node_modules/bootstrap/dist/js/bootstrap.min.js ./build/js/ & cp ./node_modules/jquery/dist/jquery.min.js ./build/js/",
-    "build": "npm run clean & npm run build:dirs & npm run build:images & npm run build:styles & browserify src/js/minesweeper-app.js -t babelify -g uglifyify -o build/app.js  & cp src/html/* ./build"
+    "build:styles": "npm run build:styles:css && npm run build:styles:js",
+    "build:styles:css": "cp ./node_modules/bootstrap/dist/css/bootstrap.min.css ./build/css/ && cp src/css/* build/css",
+    "build:styles:js": "cp ./node_modules/bootstrap/dist/js/bootstrap.min.js ./build/js/ && cp ./node_modules/jquery/dist/jquery.min.js ./build/js/",
+    "build": "npm run clean && npm run build:dirs && npm run build:images && npm run build:styles && browserify src/js/minesweeper-app.js -t babelify -g uglifyify -o build/app.js && cp src/html/* ./build"
   },
   "author": "Davor Obilinovic",
   "license": "ISC",
