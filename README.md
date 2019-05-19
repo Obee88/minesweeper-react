@@ -3,7 +3,7 @@
 
 Famous game implemented in ReactJs tehnology.
 
-Demo: http://62.75.160.163/minesweeper
+Demo: https://obee88.github.io/minesweeper-react
 
 Instalation
 -------------
