@@ -1,7 +1,7 @@
 var Timer = function(initTime, thickPeriod){
 
 	this.doThick = function(){
-		setTimeout(
+		this.timeout = setTimeout(
 			function() {
 				this.incThicks();
 				if (this.isRunning()){
@@ -55,6 +55,7 @@ var Timer = function(initTime, thickPeriod){
 	}.bind(this);
 
 	this.stop = function(){
+		clearTimeout(this.timeout);
 		this.status = 'stopped';
 	}.bind(this);
 

@@ -24,7 +24,7 @@
     "bootstrap": "^3.3.5",
     "browserify": "latest",
     "http-server": "^0.8.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.1",
     "react": "^0.13.1",
     "uglifyify": "^3.0.1",
     "watchify": "^3.1.0",
