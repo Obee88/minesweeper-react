@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DIFFICULTY_OPTIONS } from '../constants';
 import { setDifficulty } from '../state/actions';
 import { getDifficulty } from '../state/selectors';
-import './DificultySelector.scss';
+import './DificultySelector.css';
 
 const DificultySelector = () => {
   const selectedDifficulty = useSelector(getDifficulty);

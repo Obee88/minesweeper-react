@@ -11,9 +11,6 @@ class MinesweeperHeader extends React.Component {
 	*/
 
 	calcMargin(){
-		const w = this.props.headerModel.width;
-		const margin = parseInt((w*16-90-26) / 2);
-		return margin;
 	}
 	
 	render(){

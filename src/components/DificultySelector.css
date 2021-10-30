@@ -1,0 +1,7 @@
+.DS_options {
+  display: flex;
+  width: 100%;
+}
+.DS_option {
+  padding: 2px 8px;
+}
