@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { GameConfig } from '../constants';
-import { getDifficulty } from '../state/selectors';
+import { getGameConfig } from '../state/selectors';
 import Header from './Header';
 
 const BORDER_WIDTH = 10;
@@ -19,11 +19,11 @@ const calcStyle = (config: GameConfig) => {
 }
 
 const Game = () => {
-  const { config } = useSelector(getDifficulty);
+  const config = useSelector(getGameConfig);
   return (
     <div id="game" className="msw" style={calcStyle(config)}>
       <Header />
-      {/* <MinesweeperBoard />						 */}
+      <MinesweeperBoard />						
     </div>
   );
 }

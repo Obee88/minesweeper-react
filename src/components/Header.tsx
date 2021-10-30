@@ -1,15 +1,15 @@
 import React from 'react';
 import { range } from 'lodash';
 import { useSelector } from 'react-redux';
-import { getDifficulty, getMinesCounter, getTimeCounter } from '../state/selectors';
+import { getGameConfig, getMinesCounter, getTimeCounter } from '../state/selectors';
 import ThreeDigitCounter from './ThreeDigitCounter';
 import SmileyButton from './SmileyButton';
 
 const Header = () => {
-  const { config: { width } } = useSelector(getDifficulty);
+  const config = useSelector(getGameConfig);
   const minesCounter = useSelector(getMinesCounter);
   const timeCounter = useSelector(getTimeCounter);
-  const line = range(width).map(key => <div key={key} className="bordertb" />);
+  const line = range(config.width).map(key => <div key={key} className="bordertb" />);
   return (
     <div className="msw-header">
       <div className="bordertl" />{line}<div className="bordertr" />

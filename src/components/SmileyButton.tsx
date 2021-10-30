@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDifficulty, getSmileyButton } from '../state/selectors';
+import { getGameConfig, getSmileyButton } from '../state/selectors';
 import { GameConfig, SmileyButton } from '../constants';
 import { setSmileyButton } from '../state/actions';
 import { includes } from 'lodash';
@@ -17,7 +17,7 @@ const getStyles = (config: GameConfig) => {
 }
 
 const Smiley = () => {
-  const { config } = useSelector(getDifficulty);
+  const config = useSelector(getGameConfig);
   const smiley = useSelector(getSmileyButton);
   const dispatch = useDispatch();
   return (
