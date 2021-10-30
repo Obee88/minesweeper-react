@@ -28,3 +28,5 @@ export const isNeighbourPressed = (key: string) => (state: RootState) => {
   const { x: X, y: Y } = getCoordinatesFromKey(mouseLeftElement);
   return Math.abs(x - X) <= 1 && Math.abs(y - Y) <= 1;
 };
+
+export const isClockRunning = (state: RootState) => state.clockRunning;

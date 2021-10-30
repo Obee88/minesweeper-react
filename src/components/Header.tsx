@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { range } from 'lodash';
-import { useSelector } from 'react-redux';
-import { getGameConfig, getMinesCounter, getTimeCounter } from '../state/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { getGameConfig, getMinesCounter, getTimeCounter, isClockRunning } from '../state/selectors';
 import ThreeDigitCounter from './ThreeDigitCounter';
 import SmileyButton from './SmileyButton';
+import { clockTick } from '../state/actions';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const config = useSelector(getGameConfig);
   const minesCounter = useSelector(getMinesCounter);
   const timeCounter = useSelector(getTimeCounter);
+  const clockRunning = useSelector(isClockRunning);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  useEffect(() => {
+    if (clockRunning) {
+      intervalRef.current = setInterval(() => { dispatch(clockTick()); }, 1000);
+    } else  if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    }
+  }, [clockRunning, dispatch])
   const line = range(config.width).map(key => <div key={key} className="bordertb" />);
   return (
     <div className="msw-header">

@@ -41,7 +41,7 @@ class ThreeDigitCounterModel {
 		return this.inc(-1 * decrVal);
 	}
 
-  constructor(number: number){
+  constructor(number: number) {
     this.number = number; 
   }
 };

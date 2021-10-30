@@ -17,3 +17,14 @@ export const ON_MOUSE_UP = 'ON_MOUSE_UP';
 export const onMouseUp = (event: MouseEvent) => action(ON_MOUSE_UP, event);
 export const ON_MOUSE_ENTER = 'ON_MOUSE_ENTER';
 export const onMouseEnter = (event: MouseEvent) => action(ON_MOUSE_ENTER, event);
+
+export const CLOCK_TICK = 'CLOCK_TICK';
+export const clockTick = () => action(CLOCK_TICK);
+
+export const CELL_LEFT_CLICK = 'CELL_LEFT_CLICK';
+export const onCellLeftClick = (x: number, y: number) => action(CELL_LEFT_CLICK, { x, y });
+export const CELL_RIGHT_CLICK = 'CELL_RIGHT_CLICK';
+export const onCellRightClick = (x: number, y: number) => action(CELL_RIGHT_CLICK, { x, y });
+
+export const SMILEY_CLICK = 'SMILEY_CLICK';
+export const onSmileyClick = () => action(SMILEY_CLICK);

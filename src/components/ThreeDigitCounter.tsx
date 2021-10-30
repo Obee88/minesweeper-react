@@ -8,9 +8,9 @@ interface props {
 const getNthDigit = (value: number, n: number) => {
   if (n === 1 && value < 0){
     return "-";
-  } 
+  }
   var pow = Math.pow(10, 3 - n);
-  var ret = Math.floor((value / pow) % 10);
+  var ret = Math.floor((Math.abs(value) / pow) % 10);
   return Math.abs(ret);
 }
 

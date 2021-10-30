@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGameConfig, getSmileyButton } from '../state/selectors';
 import { GameConfig, SmileyButton } from '../constants';
-import { setSmileyButton } from '../state/actions';
+import { onSmileyClick, setSmileyButton } from '../state/actions';
 import { includes } from 'lodash';
 
 const getStyles = (config: GameConfig) => {
@@ -29,7 +29,7 @@ const Smiley = () => {
         }}
         onMouseUp={() => {
           if (smiley === SmileyButton.facepressed){
-            // this.fireEvent("onSmileyButtonClicked") //TODO: 
+            dispatch(onSmileyClick());
             dispatch(setSmileyButton(SmileyButton.facesmile));
           }
         }}
