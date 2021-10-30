@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { GameConfig } from '../constants';
 import { getGameConfig } from '../state/selectors';
+import Board from './Board';
 import Header from './Header';
 
 const BORDER_WIDTH = 10;
@@ -23,7 +24,7 @@ const Game = () => {
   return (
     <div id="game" className="msw" style={calcStyle(config)}>
       <Header />
-      <MinesweeperBoard />						
+      <Board />						
     </div>
   );
 }
