@@ -1,27 +1,3 @@
-export type Coordinate = {
-  x: number,
-  y: number,
-};
-
-export enum MouseKey {
-  LEFT,
-  RIGHT,
-  MIDDLE,
-}
-
-export interface MouseEvent {
-  key?: MouseKey;
-  target: string,
-}
-
-export enum SmileyButton {
-   facesmile = 'facesmile',
-   facepressed = 'facepressed',
-   facewin = 'facewin',
-   facedead = 'facedead',
-   faceooh = 'faceooh',
-};
-
 export type GameConfig = {
   width: number;
   height: number;

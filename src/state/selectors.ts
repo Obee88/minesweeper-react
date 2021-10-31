@@ -1,4 +1,4 @@
-import { getCoordinatesFromKey } from "../helpers";
+import { getCoordinatesFromKey } from "../model/Coordinate";
 import { RootState } from "./store";
 
 export const getDifficulty = (state: RootState) => state.difficulty;

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DIFFICULTY_OPTIONS } from '../constants';
+import { DIFFICULTY_OPTIONS } from '../model/Game';
 import { setDifficulty } from '../state/actions';
 import { getDifficulty } from '../state/selectors';
 import './DificultySelector.css';

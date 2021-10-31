@@ -1,8 +1,8 @@
 import { PayloadAction } from "typesafe-actions";
-import { Coordinate, SmileyButton } from "../constants";
-import { getIndexFromCoordinates } from "../helpers";
 import { Cell, getNeighbourIndexes, isBlank, isBombFlag, isNumber, isWin, revealBoardOnClick, revealBoardOnDeath } from "../model/Cell";
+import { Coordinate, getIndexFromCoordinates } from "../model/Coordinate";
 import { initMineField, isBomb } from "../model/Field";
+import { SmileyButton } from "../model/Smiley";
 import { getGameConfig, getWidth } from "./selectors";
 import { RootState } from "./store";
 

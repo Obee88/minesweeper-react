@@ -1,5 +1,7 @@
 import { action } from "typesafe-actions";
-import { DifficultyOption, MouseEvent, SmileyButton } from "../constants";
+import { DifficultyOption } from "../model/Game";
+import { MouseClickEvent } from "../model/Mouse";
+import { SmileyButton } from "../model/Smiley";
 
 export const SET_DIFFICULTY = 'SET_DIFFICULTY';
 export const setDifficulty = (difficulty: DifficultyOption) => action(SET_DIFFICULTY, difficulty);
@@ -12,11 +14,11 @@ export const setSmileyButton = (value: SmileyButton) => action(SET_SMILEY_BUTTON
 
 
 export const ON_MOUSE_DOWN = 'ON_MOUSE_DOWN';
-export const onMouseDown = (event: MouseEvent) => action(ON_MOUSE_DOWN, event);
+export const onMouseDown = (event: MouseClickEvent) => action(ON_MOUSE_DOWN, event);
 export const ON_MOUSE_UP = 'ON_MOUSE_UP';
-export const onMouseUp = (event: MouseEvent) => action(ON_MOUSE_UP, event);
+export const onMouseUp = (event: MouseClickEvent) => action(ON_MOUSE_UP, event);
 export const ON_MOUSE_ENTER = 'ON_MOUSE_ENTER';
-export const onMouseEnter = (event: MouseEvent) => action(ON_MOUSE_ENTER, event);
+export const onMouseEnter = (event: MouseClickEvent) => action(ON_MOUSE_ENTER, event);
 
 export const CLOCK_TICK = 'CLOCK_TICK';
 export const clockTick = () => action(CLOCK_TICK);

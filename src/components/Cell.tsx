@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MouseKey } from '../constants';
-import { getMouseKey } from '../helpers';
 import { Cell } from '../model/Cell';
+import { getMouseKey, MouseKey } from '../model/Mouse';
 import { onCellBothClick, onCellLeftClick, onCellRightClick, onMouseDown, onMouseEnter, onMouseUp } from '../state/actions';
 import { getCellStatus, isLeftDown, isLeftPressed, isNeighbourPressed, isRightDown } from '../state/selectors';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { GameConfig } from '../constants';
+import { GameConfig } from '../model/Game';
 import { getGameConfig } from '../state/selectors';
 import Board from './Board';
 import Header from './Header';

@@ -1,6 +1,8 @@
 import { createReducer, PayloadAction } from 'typesafe-actions';
-import { DifficultyOption, DIFFICULTY_OPTIONS, MouseEvent, MouseKey, SmileyButton } from '../constants';
 import { initBoard } from '../model/Cell';
+import { DifficultyOption, DIFFICULTY_OPTIONS } from '../model/Game';
+import { MouseKey, MouseClickEvent } from '../model/Mouse';
+import { SmileyButton } from '../model/Smiley';
 import {
   SET_DIFFICULTY,
   SET_MINES_COUNTER,
@@ -49,7 +51,7 @@ const reducer = createReducer<RootState>(getInitialState())
     ...state,
     smileyButton: action.payload, 
   }))
-  .handleType(ON_MOUSE_DOWN, (state: RootState, action: PayloadAction<string, MouseEvent>) => {
+  .handleType(ON_MOUSE_DOWN, (state: RootState, action: PayloadAction<string, MouseClickEvent>) => {
     if (state.gameEnded) return state;
     if (action.payload.key === MouseKey.LEFT) {
       return ({
@@ -74,7 +76,7 @@ const reducer = createReducer<RootState>(getInitialState())
     }
     return state;
   })
-  .handleType(ON_MOUSE_UP, (state: RootState, action: PayloadAction<string, MouseEvent>) => {
+  .handleType(ON_MOUSE_UP, (state: RootState, action: PayloadAction<string, MouseClickEvent>) => {
     if (state.gameEnded) return state;
     if (action.payload.key === MouseKey.LEFT) {
       return ({
@@ -99,7 +101,7 @@ const reducer = createReducer<RootState>(getInitialState())
     }
     return state;
   })
-  .handleType(ON_MOUSE_ENTER, (state: RootState, action: PayloadAction<string, MouseEvent>) => {
+  .handleType(ON_MOUSE_ENTER, (state: RootState, action: PayloadAction<string, MouseClickEvent>) => {
     if (state.mouseLeft !== undefined && state.mouseRight !== undefined) {
       return ({
         ...state,
