@@ -56,7 +56,7 @@ export const revealBoardOnDeath = (oldBoard: Cell[], mineField: Field[], deathIn
   return newBoard;
 }
 
-const getNeighbourIndexes = (i: number, w: number, size: number) => {
+export const getNeighbourIndexes = (i: number, w: number, size: number) => {
   const neighbourIndexes = [];
   const isFirstColumn = i % w === 0;
   const isLastColumn = i % w === w - 1;
@@ -92,11 +92,8 @@ export const revealBoardOnClick = (board: Cell[], mineField: Field[], i: number,
     newBoard[i] = Cell.open0;
     const neighbourIndexes = getNeighbourIndexes(i, w, board.length)
       .filter(ni => isBlank(board[ni]) && isFieldNumber(mineField[ni]));
-    for (const ni in neighbourIndexes) {
-      if (Object.prototype.hasOwnProperty.call(neighbourIndexes, ni)) {
-        const neighbourIndex = neighbourIndexes[ni];
-        newBoard = revealBoardOnClick(newBoard, mineField, neighbourIndex, w);
-      }
+    for (let i = 0; i < neighbourIndexes.length; ++i) {
+      newBoard = revealBoardOnClick(newBoard, mineField, neighbourIndexes[i], w);
     }
   }
   return newBoard;

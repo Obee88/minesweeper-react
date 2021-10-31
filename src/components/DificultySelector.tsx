@@ -14,7 +14,7 @@ const DificultySelector = () => {
       {DIFFICULTY_OPTIONS.map(option => (
         <button
           key={option.label}
-          className={classNames('DS_option', { sleected: selectedDifficulty.label === option.label })}
+          className={classNames('DS_option', { DS_option_active: selectedDifficulty.label === option.label })}
           onClick={() => {
             const act = setDifficulty(option);
             dispatch(act);

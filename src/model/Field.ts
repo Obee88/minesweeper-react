@@ -1,4 +1,5 @@
 import { getIndexFromCoordinates } from "../helpers";
+import { getNeighbourIndexes } from "./Cell";
 
 export type Field = 'X' | 'x' | '0' | '1'  | '2'  | '3'  | '4'  | '5'  | '6'  | '7'  | '8';
 
@@ -34,22 +35,13 @@ export const initMineField = (width: number, height: number, x: number, y: numbe
       mineField[i] = minesArr[m++];
     }
   }
-  
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      const i = getIndexFromCoordinates(x, y, width);
-      if (mineField[i] !== 'x') {
-        var c = 0;
-        if (mineField[getIndexFromCoordinates(x-1, y-1, width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x-1, y  , width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x-1, y+1, width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x  , y-1, width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x  , y+1, width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x+1, y-1, width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x+1, y  , width)] === 'x') c++;
-        if (mineField[getIndexFromCoordinates(x+1, y+1, width)] === 'x') c++;
-        mineField[i] = `${c}`;
-      }
+
+  for (let i = 0; i < mineFieldSize; ++i) {
+    if (mineField[i] !== 'x') {
+      const neighbourIndexes = getNeighbourIndexes(i, width, mineFieldSize);
+      const neighbourMines = neighbourIndexes.map(ni => mineField[ni] === 'x' ? 1 : 0);
+      const neighbourMinesCount = neighbourMines.reduce((acc: number, cur) => (acc + cur), 0);
+      mineField[i] = `${neighbourMinesCount}`;
     }
   }
 

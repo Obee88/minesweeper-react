@@ -1,5 +1,5 @@
 import { getCoordinatesFromKey } from "../helpers";
-import { RootState } from "./reducer";
+import { RootState } from "./store";
 
 export const getDifficulty = (state: RootState) => state.difficulty;
 export const getGameConfig = (state: RootState) => state.difficulty.config;

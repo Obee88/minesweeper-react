@@ -1,8 +1,6 @@
 import { createReducer, PayloadAction } from 'typesafe-actions';
-import { Coordinate, DifficultyOption, DIFFICULTY_OPTIONS, MouseEvent, MouseKey, SmileyButton } from '../constants';
-import { getIndexFromCoordinates } from '../helpers';
-import { Cell, initBoard, isBlank, isBombFlag, isWin, revealBoardOnClick, revealBoardOnDeath } from '../model/Cell';
-import { Field, initMineField, isBomb } from '../model/Field';
+import { DifficultyOption, DIFFICULTY_OPTIONS, MouseEvent, MouseKey, SmileyButton } from '../constants';
+import { initBoard } from '../model/Cell';
 import {
   SET_DIFFICULTY,
   SET_MINES_COUNTER,
@@ -15,22 +13,10 @@ import {
   CELL_LEFT_CLICK,
   CELL_RIGHT_CLICK,
   SMILEY_CLICK,
+  CELL_BOTH_CLICK,
 } from './actions';
-import { getGameConfig } from './selectors';
-
-export type RootState = {
-  difficulty: DifficultyOption,
-  minesCounter: number,
-  timeCounter: number,
-  smileyButton: SmileyButton,
-  board: Cell[],
-  mineField: Field[] | undefined,
-  mouseLeft: string | undefined,
-  mouseMiddle: string | undefined,
-  mouseRight: string | undefined,
-  clockRunning: boolean,
-  gameStarted: boolean,
-};
+import { handleBothClick, handleLeftClick, handleRightClick } from './gameHelpers';
+import { RootState } from './store';
 
 const getInitialState = (difficulty = DIFFICULTY_OPTIONS[0]) => ({
   difficulty,
@@ -44,6 +30,7 @@ const getInitialState = (difficulty = DIFFICULTY_OPTIONS[0]) => ({
   mouseRight: undefined,
   clockRunning: false,
   gameStarted: false,
+  gameEnded: false,
 });
 
 const reducer = createReducer<RootState>(getInitialState())
@@ -63,6 +50,7 @@ const reducer = createReducer<RootState>(getInitialState())
     smileyButton: action.payload, 
   }))
   .handleType(ON_MOUSE_DOWN, (state: RootState, action: PayloadAction<string, MouseEvent>) => {
+    if (state.gameEnded) return state;
     if (action.payload.key === MouseKey.LEFT) {
       return ({
         ...state,
@@ -87,6 +75,7 @@ const reducer = createReducer<RootState>(getInitialState())
     return state;
   })
   .handleType(ON_MOUSE_UP, (state: RootState, action: PayloadAction<string, MouseEvent>) => {
+    if (state.gameEnded) return state;
     if (action.payload.key === MouseKey.LEFT) {
       return ({
         ...state,
@@ -138,76 +127,9 @@ const reducer = createReducer<RootState>(getInitialState())
     }
     return state;
   })
-  .handleType(CELL_LEFT_CLICK, (state: RootState, action: PayloadAction<string, Coordinate>) => {
-    const { board, mineField, gameStarted } = state;
-    const {
-      width: w,
-      height: h,
-      mines,
-     } = getGameConfig(state);
-    const { x, y } = action.payload;
-    const index = getIndexFromCoordinates(x, y, w);
-    if (!gameStarted) {
-      const newMineField = initMineField(w, h, x, y, mines);
-      const newBoard = revealBoardOnClick(board, newMineField, index, w);
-      return ({
-        ...state,
-        gameStarted: true,
-        mineField: newMineField,
-        clockRunning: true,
-        board: newBoard,
-      })
-    }
-    const cell = board[index];
-    if (!mineField || !isBlank(cell)) {
-      return state;
-    }
-    const field = mineField[index];
-    if (isBomb(field)) {
-      return ({
-        ...state,
-        clockRunning: false,
-        board: revealBoardOnDeath(board, mineField, index),
-        smileyButton: SmileyButton.facedead,
-      });
-    }
-    const newBoard = revealBoardOnClick(board, mineField, index, w);
-    const win = isWin(newBoard, mineField);
-    return ({
-      ...state,
-      clockRunning: !win,
-      board: newBoard,
-      smileyButton: win ? SmileyButton.facewin : SmileyButton.facesmile,
-    });
-  })
-  .handleType(CELL_RIGHT_CLICK, (state: RootState, action: PayloadAction<string, Coordinate>) => {
-    const { board, minesCounter } = state;
-    const {
-      width: w,
-     } = getGameConfig(state);
-    const { x, y } = action.payload;
-    const index = getIndexFromCoordinates(x, y, w);
-    const cell = board[index];
-    if (isBlank(cell)) {
-      const newBoard = [...board];
-      newBoard[index] = Cell.bombflagged;
-      return ({
-        ...state,
-        board: newBoard,
-        minesCounter: minesCounter - 1,
-      });
-    }
-    if (isBombFlag(cell)) {
-      const newBoard = [...board];
-      newBoard[index] = Cell.blank;
-      return ({
-        ...state,
-        board: newBoard,
-        minesCounter: minesCounter + 1,
-      });
-    }
-    return state;
-  })
+  .handleType(CELL_LEFT_CLICK, handleLeftClick)
+  .handleType(CELL_RIGHT_CLICK, handleRightClick)
+  .handleType(CELL_BOTH_CLICK, handleBothClick)
   .handleType(SMILEY_CLICK, (state: RootState) => (
     getInitialState(state.difficulty)
   ))
@@ -215,5 +137,6 @@ const reducer = createReducer<RootState>(getInitialState())
     ...state,
     timeCounter: state.timeCounter + 1,
   }));
+
   
 export default reducer;

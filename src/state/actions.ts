@@ -25,6 +25,8 @@ export const CELL_LEFT_CLICK = 'CELL_LEFT_CLICK';
 export const onCellLeftClick = (x: number, y: number) => action(CELL_LEFT_CLICK, { x, y });
 export const CELL_RIGHT_CLICK = 'CELL_RIGHT_CLICK';
 export const onCellRightClick = (x: number, y: number) => action(CELL_RIGHT_CLICK, { x, y });
+export const CELL_BOTH_CLICK = 'CELL_BOTH_CLICK';
+export const onCellBothClick = (x: number, y: number) => action(CELL_BOTH_CLICK, { x, y });
 
 export const SMILEY_CLICK = 'SMILEY_CLICK';
 export const onSmileyClick = () => action(SMILEY_CLICK);

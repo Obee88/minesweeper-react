@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MouseKey } from '../constants';
 import { getMouseKey } from '../helpers';
 import { Cell } from '../model/Cell';
-import { onCellLeftClick, onCellRightClick, onMouseDown, onMouseEnter, onMouseUp } from '../state/actions';
+import { onCellBothClick, onCellLeftClick, onCellRightClick, onMouseDown, onMouseEnter, onMouseUp } from '../state/actions';
 import { getCellStatus, isLeftDown, isLeftPressed, isNeighbourPressed, isRightDown } from '../state/selectors';
 
 interface props {
@@ -37,9 +37,17 @@ const CellComponent = ({ x, y } : props) => {
         const mouseKey = getMouseKey(e);
         dispatch(onMouseUp({ key: mouseKey, target: key }));
         if (mouseKey === MouseKey.LEFT) {
-          dispatch(onCellLeftClick(x, y));
+          if (rightDown) {
+            dispatch(onCellBothClick(x, y))
+          } else {
+            dispatch(onCellLeftClick(x, y));
+          }
         } else if (mouseKey === MouseKey.RIGHT) {
-          dispatch(onCellRightClick(x, y));
+          if (leftDown) {
+            dispatch(onCellBothClick(x, y))
+          } else {
+            dispatch(onCellRightClick(x, y));
+          }
         }
         e.stopPropagation();
       } }
