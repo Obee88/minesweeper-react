@@ -6,10 +6,10 @@ import Cell from './Cell';
 
 const Board = () => {
   const { height: h, width: w } = useSelector(getGameConfig);
-  const b =  (key: string) => (<div key={key} className="borderlr" />);
+  const border =  (key: string) => (<div key={key} className="borderlr" />);
   var divs = [];
   for (var y = 0; y < h; ++y) {
-    divs.push(b(`${y}-l`));
+    divs.push(border(`${y}-l`));
     for (var x = 0; x < w; ++x){
       divs.push(
         <Cell
@@ -19,7 +19,7 @@ const Board = () => {
         />
       );
     }
-    divs.push(b(`${y}-r`));
+    divs.push(border(`${y}-r`));
   }
   const line = range(w).map(i => <div key={i} className="bordertb" />);
   return (
