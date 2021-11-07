@@ -13,4 +13,5 @@
 .DS_option_active {
   border-width: 0.1px;
   background-color: lightgray;
+  border-radius: 3px;
 }
