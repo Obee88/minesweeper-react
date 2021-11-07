@@ -1,18 +1,18 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "22e282fdac8f54800f83fdccbde02b75",
+    "revision": "22bb696e46b88a97f3a40bacffddc352",
     "url": "/minesweeper-react/index.html"
   },
   {
-    "revision": "53837ed52290c96ec6ba",
-    "url": "/minesweeper-react/static/css/main.5227fba5.chunk.css"
+    "revision": "2e1e1d3d3daa1cec65a5",
+    "url": "/minesweeper-react/static/css/main.5372037f.chunk.css"
   },
   {
     "revision": "fd7df49ba7cca4d743c2",
     "url": "/minesweeper-react/static/js/2.118069b8.chunk.js"
   },
   {
-    "revision": "53837ed52290c96ec6ba",
+    "revision": "2e1e1d3d3daa1cec65a5",
     "url": "/minesweeper-react/static/js/main.081c0d3c.chunk.js"
   },
   {
