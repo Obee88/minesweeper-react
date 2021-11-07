@@ -20,7 +20,7 @@ import {
 import { handleBothClick, handleLeftClick, handleRightClick } from './gameHelpers';
 import { RootState } from './store';
 
-const getInitialState = (difficulty = DIFFICULTY_OPTIONS[0]) => ({
+const getInitialState = (difficulty = DIFFICULTY_OPTIONS[2]) => ({
   difficulty,
   minesCounter: difficulty.config.mines,
   timeCounter: 0,
